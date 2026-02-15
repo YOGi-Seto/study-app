@@ -32,6 +32,55 @@ router.get('/:id', (req, res) => {
   res.json(user);
 });
 
+// GET /api/users/:id/following — フォロー中一覧
+router.get('/:id/following', (req, res) => {
+  const user = db.prepare('SELECT id FROM users WHERE id = ?').get(req.params.id);
+  if (!user) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+  const following = db.prepare(`
+    SELECT u.* FROM users u
+    JOIN follows f ON u.id = f.followee_id
+    WHERE f.follower_id = ?
+    ORDER BY f.created_at DESC
+  `).all(req.params.id);
+  res.json(following);
+});
+
+// GET /api/users/:id/followers — フォロワー一覧
+router.get('/:id/followers', (req, res) => {
+  const user = db.prepare('SELECT id FROM users WHERE id = ?').get(req.params.id);
+  if (!user) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+  const followers = db.prepare(`
+    SELECT u.* FROM users u
+    JOIN follows f ON u.id = f.follower_id
+    WHERE f.followee_id = ?
+    ORDER BY f.created_at DESC
+  `).all(req.params.id);
+  res.json(followers);
+});
+
+// GET /api/users/:id/following/study-logs — フォロー中ユーザーの学習ログ新着
+router.get('/:id/following/study-logs', (req, res) => {
+  const user = db.prepare('SELECT id FROM users WHERE id = ?').get(req.params.id);
+  if (!user) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+  const limit = parseInt(req.query.limit) || 20;
+  const offset = parseInt(req.query.offset) || 0;
+  const logs = db.prepare(`
+    SELECT sl.*, u.name AS user_name FROM study_logs sl
+    JOIN follows f ON sl.user_id = f.followee_id
+    JOIN users u ON sl.user_id = u.id
+    WHERE f.follower_id = ?
+    ORDER BY sl.studied_at DESC
+    LIMIT ? OFFSET ?
+  `).all(req.params.id, limit, offset);
+  res.json(logs);
+});
+
 // POST /api/users/:id/follow/:targetId — フォロー
 router.post('/:id/follow/:targetId', (req, res) => {
   const { id, targetId } = req.params;

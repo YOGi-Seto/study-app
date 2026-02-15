@@ -50,6 +50,9 @@ study-app/
 | GET | `/api/users` | ユーザー一覧 |
 | GET | `/api/users/:id` | ユーザー詳細 |
 | POST | `/api/users` | ユーザー作成（name, role） |
+| GET | `/api/users/:id/following` | フォロー中ユーザー一覧 |
+| GET | `/api/users/:id/followers` | フォロワー一覧 |
+| GET | `/api/users/:id/following/study-logs?limit=20&offset=0` | フォロー中ユーザーの学習ログ新着 |
 | POST | `/api/users/:id/follow/:targetId` | フォロー |
 | DELETE | `/api/users/:id/follow/:targetId` | フォロー解除 |
 | POST | `/api/users/:parentId/children/:childId` | 親子関係登録 |
@@ -99,3 +102,4 @@ node src/index.js
 2. **Phase2**: 動画アップロード（multer）・公開フィードAPI追加
 3. **Phase3**: フロントエンドUI（HTML/CSS/JS）作成、`public/`静的配信追加
 4. **デプロイ**: GitHub連携 → Render Web Serviceにデプロイ、シードデータ追加
+5. **Phase4（自習室/フォロー）**: フォロー中一覧・フォロワー一覧・フォロー中ユーザーの学習ログ新着取得API追加
