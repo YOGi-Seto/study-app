@@ -4,7 +4,7 @@ const db = require('../db');
 
 // POST /api/sessions — セッション作成（配信者が問題付きセッションを登録）
 router.post('/', (req, res) => {
-  const { broadcaster_id, title, subject, video_url, questions } = req.body;
+  const { broadcaster_id, video_id, title, subject, video_url, questions } = req.body;
 
   if (!broadcaster_id || !title || !subject || !video_url) {
     return res.status(400).json({ error: 'broadcaster_id, title, subject, video_url are required' });
@@ -18,14 +18,14 @@ router.post('/', (req, res) => {
   }
 
   const insertSession = db.prepare(
-    'INSERT INTO sessions (broadcaster_id, title, subject, video_url) VALUES (?, ?, ?, ?)'
+    'INSERT INTO sessions (broadcaster_id, video_id, title, subject, video_url) VALUES (?, ?, ?, ?, ?)'
   );
   const insertQuestion = db.prepare(
     'INSERT INTO questions (session_id, body, choice_a, choice_b, choice_c, choice_d, correct_choice, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
   );
 
   const txn = db.transaction(() => {
-    const result = insertSession.run(broadcaster_id, title, subject, video_url);
+    const result = insertSession.run(broadcaster_id, video_id || null, title, subject, video_url);
     const sessionId = result.lastInsertRowid;
 
     questions.forEach((q, i) => {

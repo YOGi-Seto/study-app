@@ -100,6 +100,28 @@
         </div>
       </div>
     </section>
+    <!-- クイズ画面（フィードから遷移） -->
+    <section id="quiz-overlay" hidden>
+      <!-- 視聴者部屋 -->
+      <div id="quiz-room-view">
+        <div class="quiz-video-area">
+          <video id="quiz-video" controls playsinline preload="metadata"></video>
+        </div>
+        <div class="quiz-question-area">
+          <div class="quiz-progress" id="quiz-progress"></div>
+          <div class="quiz-body" id="quiz-body"></div>
+          <div class="quiz-choices" id="quiz-choices"></div>
+        </div>
+      </div>
+
+      <!-- 結果表示 -->
+      <div id="quiz-result-view" hidden>
+        <h3 class="quiz-result-title">結果</h3>
+        <div class="quiz-result-summary" id="quiz-result-summary"></div>
+        <div class="quiz-result-details" id="quiz-result-details"></div>
+        <button id="quiz-back-btn" class="btn">フィードに戻る</button>
+      </div>
+    </section>
   </main>
 
   <script src="/app.js"></script>
