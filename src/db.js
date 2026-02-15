@@ -47,6 +47,37 @@ db.exec(`
     created_at TEXT DEFAULT (datetime('now')),
     PRIMARY KEY (parent_id, child_id)
   );
+
+  CREATE TABLE IF NOT EXISTS sessions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    broadcaster_id INTEGER NOT NULL REFERENCES users(id),
+    title TEXT NOT NULL,
+    subject TEXT NOT NULL,
+    video_url TEXT NOT NULL,
+    created_at TEXT DEFAULT (datetime('now'))
+  );
+
+  CREATE TABLE IF NOT EXISTS questions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    session_id INTEGER NOT NULL REFERENCES sessions(id),
+    body TEXT NOT NULL,
+    choice_a TEXT NOT NULL,
+    choice_b TEXT NOT NULL,
+    choice_c TEXT NOT NULL,
+    choice_d TEXT NOT NULL,
+    correct_choice TEXT NOT NULL CHECK(correct_choice IN ('a','b','c','d')),
+    sort_order INTEGER NOT NULL DEFAULT 0
+  );
+
+  CREATE TABLE IF NOT EXISTS answers (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    question_id INTEGER NOT NULL REFERENCES questions(id),
+    user_id INTEGER NOT NULL REFERENCES users(id),
+    selected_choice TEXT NOT NULL CHECK(selected_choice IN ('a','b','c','d')),
+    time_ms INTEGER NOT NULL,
+    created_at TEXT DEFAULT (datetime('now')),
+    UNIQUE(question_id, user_id)
+  );
 `);
 
 // シードデータ: ユーザーが0人なら初期ユーザーを作成
