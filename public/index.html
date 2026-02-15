@@ -8,11 +8,21 @@
 </head>
 <body>
   <header>
-    <h1>StudyTok</h1>
+    <div class="header-top">
+      <h1>StudyTok</h1>
+      <div id="login-area">
+        <select id="login-user">
+          <option value="">ログイン</option>
+        </select>
+        <span id="login-name" hidden></span>
+        <button id="logout-btn" class="btn-logout" hidden>ログアウト</button>
+      </div>
+    </div>
     <nav>
       <button class="tab-btn active" data-tab="feed">フィード</button>
       <button class="tab-btn" data-tab="upload">アップロード</button>
       <button class="tab-btn" data-tab="my-videos">マイ動画</button>
+      <button class="tab-btn" data-tab="study-room">自習室</button>
     </nav>
   </header>
 
@@ -27,11 +37,6 @@
     <!-- アップロードタブ -->
     <section id="upload" class="tab-content" hidden>
       <form id="upload-form">
-        <label>ユーザー
-          <select id="upload-user" required>
-            <option value="">選択してください</option>
-          </select>
-        </label>
         <label>タイトル
           <input type="text" id="upload-title" required placeholder="動画タイトル">
         </label>
@@ -52,16 +57,48 @@
 
     <!-- マイ動画タブ -->
     <section id="my-videos" class="tab-content" hidden>
-      <div class="user-select-row">
-        <label>ユーザー
-          <select id="my-user" required>
-            <option value="">選択してください</option>
-          </select>
-        </label>
-        <button id="my-load" class="btn">表示</button>
-      </div>
       <div id="my-video-list" class="video-list"></div>
       <p id="my-empty" class="empty-msg" hidden>動画はまだありません</p>
+    </section>
+    <!-- 自習室タブ -->
+    <section id="study-room" class="tab-content" hidden>
+      <div id="sr-content">
+        <!-- フォロー管理 -->
+        <div class="sr-section">
+          <h3 class="sr-heading">フォロー管理</h3>
+          <div class="sr-follow-row">
+            <select id="sr-follow-target">
+              <option value="">フォローするユーザー</option>
+            </select>
+            <button id="sr-follow-btn" class="btn btn-primary">フォロー</button>
+          </div>
+          <p id="sr-follow-status" class="status-msg"></p>
+        </div>
+
+        <!-- フォロー中 / フォロワー -->
+        <div class="sr-section">
+          <div class="sr-tabs">
+            <button class="sr-tab-btn active" data-sr-tab="following">フォロー中</button>
+            <button class="sr-tab-btn" data-sr-tab="followers">フォロワー</button>
+          </div>
+          <div id="sr-following" class="sr-tab-content">
+            <div id="sr-following-list" class="user-list"></div>
+            <p id="sr-following-empty" class="empty-msg" hidden>まだ誰もフォローしていません</p>
+          </div>
+          <div id="sr-followers" class="sr-tab-content" hidden>
+            <div id="sr-followers-list" class="user-list"></div>
+            <p id="sr-followers-empty" class="empty-msg" hidden>フォロワーはいません</p>
+          </div>
+        </div>
+
+        <!-- フォロー中の学習ログ -->
+        <div class="sr-section">
+          <h3 class="sr-heading">フォロー中の学習ログ</h3>
+          <div id="sr-logs-list" class="log-list"></div>
+          <p id="sr-logs-empty" class="empty-msg" hidden>学習ログはまだありません</p>
+          <button id="sr-logs-more" class="btn" hidden>もっと見る</button>
+        </div>
+      </div>
     </section>
   </main>
 

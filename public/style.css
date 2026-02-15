@@ -20,9 +20,51 @@ header {
   border-bottom: 1px solid #222;
 }
 
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
 header h1 {
   font-size: 20px;
-  margin-bottom: 10px;
+}
+
+#login-area {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#login-area select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 13px;
+}
+
+#login-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4ade80;
+}
+
+.btn-logout {
+  padding: 4px 10px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background: transparent;
+  color: #888;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.btn-logout:hover {
+  color: #f87171;
+  border-color: #f87171;
 }
 
 nav {
@@ -216,4 +258,135 @@ main {
 
 #load-more[hidden] {
   display: none;
+}
+
+/* 自習室 */
+.sr-section {
+  margin-bottom: 24px;
+}
+
+.sr-heading {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #ccc;
+}
+
+.sr-follow-row {
+  display: flex;
+  gap: 8px;
+}
+
+.sr-follow-row select {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 14px;
+}
+
+.sr-follow-row .btn {
+  width: auto;
+  margin-top: 0;
+  padding: 10px 16px;
+  font-size: 13px;
+}
+
+.sr-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.sr-tab-btn {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  background: #1a1a1a;
+  color: #888;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.sr-tab-btn.active {
+  background: #2a2a2a;
+  color: #fff;
+}
+
+/* ユーザーリスト */
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.user-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: #1a1a1a;
+  border-radius: 8px;
+}
+
+.user-item .user-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.user-item .user-role {
+  font-size: 12px;
+  color: #888;
+  margin-left: 6px;
+}
+
+.btn-unfollow {
+  padding: 6px 12px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background: transparent;
+  color: #f87171;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-unfollow:hover {
+  background: #2a1e1e;
+}
+
+/* 学習ログリスト */
+.log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.log-item {
+  padding: 12px;
+  background: #1a1a1a;
+  border-radius: 8px;
+}
+
+.log-item .log-user {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fe2c55;
+  margin-bottom: 4px;
+}
+
+.log-item .log-subject {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.log-item .log-detail {
+  font-size: 13px;
+  color: #888;
 }
