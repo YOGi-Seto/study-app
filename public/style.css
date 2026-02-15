@@ -43,7 +43,7 @@ header h1 {
   border: 1px solid #333;
   background: #1a1a1a;
   color: #fff;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 #login-name {
@@ -209,7 +209,7 @@ main {
   border: 1px solid #333;
   background: #1a1a1a;
   color: #fff;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 #upload-form input[type="file"] {
@@ -218,7 +218,7 @@ main {
   border: 1px solid #333;
   background: #1a1a1a;
   color: #fff;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .status-msg {
@@ -288,7 +288,7 @@ main {
   border: 1px solid #333;
   background: #1a1a1a;
   color: #fff;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .sr-follow-row .btn {
