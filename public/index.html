@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyTok</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1>StudyTok</h1>
+    <nav>
+      <button class="tab-btn active" data-tab="feed">フィード</button>
+      <button class="tab-btn" data-tab="upload">アップロード</button>
+      <button class="tab-btn" data-tab="my-videos">マイ動画</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- フィードタブ -->
+    <section id="feed" class="tab-content active">
+      <div id="feed-list" class="video-list"></div>
+      <button id="load-more" class="btn">もっと見る</button>
+      <p id="feed-empty" class="empty-msg" hidden>公開動画はまだありません</p>
+    </section>
+
+    <!-- アップロードタブ -->
+    <section id="upload" class="tab-content" hidden>
+      <form id="upload-form">
+        <label>ユーザー
+          <select id="upload-user" required>
+            <option value="">選択してください</option>
+          </select>
+        </label>
+        <label>タイトル
+          <input type="text" id="upload-title" required placeholder="動画タイトル">
+        </label>
+        <label>公開範囲
+          <select id="upload-visibility">
+            <option value="public">公開</option>
+            <option value="followers">フォロワーのみ</option>
+            <option value="private">非公開</option>
+          </select>
+        </label>
+        <label>動画ファイル
+          <input type="file" id="upload-file" accept="video/*" required>
+        </label>
+        <button type="submit" class="btn btn-primary">アップロード</button>
+        <p id="upload-status" class="status-msg"></p>
+      </form>
+    </section>
+
+    <!-- マイ動画タブ -->
+    <section id="my-videos" class="tab-content" hidden>
+      <div class="user-select-row">
+        <label>ユーザー
+          <select id="my-user" required>
+            <option value="">選択してください</option>
+          </select>
+        </label>
+        <button id="my-load" class="btn">表示</button>
+      </div>
+      <div id="my-video-list" class="video-list"></div>
+      <p id="my-empty" class="empty-msg" hidden>動画はまだありません</p>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

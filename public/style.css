@@ -1,0 +1,219 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+  min-height: 100vh;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #111;
+  padding: 12px 16px 0;
+  border-bottom: 1px solid #222;
+}
+
+header h1 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+nav {
+  display: flex;
+  gap: 4px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  color: #888;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.tab-btn.active {
+  color: #fff;
+  border-bottom-color: #fe2c55;
+}
+
+main {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* 動画リスト */
+.video-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.video-card {
+  background: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.video-card video {
+  width: 100%;
+  max-height: 60vh;
+  background: #000;
+}
+
+.video-card .info {
+  padding: 12px;
+}
+
+.video-card .info .title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.video-card .info .meta {
+  font-size: 13px;
+  color: #888;
+}
+
+.video-card .info .visibility-badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-top: 6px;
+}
+
+.visibility-badge.public {
+  background: #1e3a2f;
+  color: #4ade80;
+}
+
+.visibility-badge.followers {
+  background: #2a2a1e;
+  color: #facc15;
+}
+
+.visibility-badge.private {
+  background: #2a1e1e;
+  color: #f87171;
+}
+
+/* ボタン */
+.btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background 0.2s;
+}
+
+.btn:hover {
+  background: #252525;
+}
+
+.btn-primary {
+  background: #fe2c55;
+  border-color: #fe2c55;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: #e0264c;
+}
+
+/* フォーム */
+#upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#upload-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+#upload-form input[type="text"],
+#upload-form select,
+.user-select-row select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 14px;
+}
+
+#upload-form input[type="file"] {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 13px;
+}
+
+.status-msg {
+  text-align: center;
+  font-size: 14px;
+  min-height: 20px;
+}
+
+.status-msg.success { color: #4ade80; }
+.status-msg.error { color: #f87171; }
+
+/* マイ動画 ユーザー選択行 */
+.user-select-row {
+  display: flex;
+  gap: 8px;
+  align-items: end;
+  margin-bottom: 16px;
+}
+
+.user-select-row label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+.user-select-row .btn {
+  width: auto;
+  margin-top: 0;
+  padding: 10px 20px;
+}
+
+.empty-msg {
+  text-align: center;
+  color: #666;
+  padding: 40px 0;
+  font-size: 14px;
+}
+
+#load-more[hidden] {
+  display: none;
+}
