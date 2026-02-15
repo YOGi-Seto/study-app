@@ -49,4 +49,13 @@ db.exec(`
   );
 `);
 
+// シードデータ: ユーザーが0人なら初期ユーザーを作成
+const count = db.prepare('SELECT COUNT(*) AS cnt FROM users').get().cnt;
+if (count === 0) {
+  const insert = db.prepare('INSERT INTO users (name, role) VALUES (?, ?)');
+  insert.run('太郎', 'student');
+  insert.run('花子', 'student');
+  insert.run('父親', 'parent');
+}
+
 module.exports = db;
