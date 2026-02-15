@@ -20,7 +20,8 @@ study-app/
 │   └── routes/
 │       ├── users.js      # ユーザーCRUD・フォロー・親子関係
 │       ├── videos.js     # 動画アップロード・一覧
-│       ├── feed.js       # 公開動画フィード
+│       ├── feed.js       # 公開動画フィード（session_id, subject含む）
+│       ├── sessions.js   # クイズセッションCRUD・回答・結果比較
 │       └── studyLogs.js  # 勉強記録
 ├── public/
 │   ├── index.html        # メインHTML（4タブ構成 + ログイン）
@@ -39,8 +40,14 @@ study-app/
 | study_logs | 勉強記録（user_id, subject, duration_min, page_start/end） |
 | follows | フォロー関係（follower_id, followee_id） |
 | parent_child | 親子関係（parent_id, child_id） |
+| sessions | クイズセッション（broadcaster_id, video_id, title, subject, video_url） |
+| questions | 問題（session_id, body, choice_a〜d, correct_choice, sort_order） |
+| answers | 回答（question_id, user_id, selected_choice, time_ms） |
 
-初回起動時にシードデータとして「太郎(student)」「花子(student)」「父親(parent)」を自動作成。
+### シードデータ（初回起動時に自動作成）
+- ユーザー: 「太郎(student)」「花子(student)」「父親(parent)」
+- ダミータイル6件: 数学の基礎、英語リスニング、国語 古文読解、理科 実験まとめ、社会 地理、数学 応用問題
+- 「数学の基礎」に数学クイズ3問付き（配信者は1問ランダムで不正解）
 
 ## API一覧
 
@@ -74,6 +81,15 @@ study-app/
 | POST | `/api/users/:userId/study-logs` | 記録作成（subject, duration_min, page_start, page_end） |
 | GET | `/api/users/:userId/study-logs` | ユーザーの記録一覧 |
 
+### クイズセッション
+| メソッド | パス | 説明 |
+|---------|------|------|
+| POST | `/api/sessions` | セッション作成（broadcaster_id, video_id, title, subject, video_url, questions） |
+| GET | `/api/sessions` | セッション一覧（id, title, subject, video_url, question_count） |
+| GET | `/api/sessions/:id` | セッション詳細（動画URL + 問題一覧、正解は含まない） |
+| POST | `/api/sessions/:id/answers` | 回答送信（user_id, answers[{question_id, selected_choice, time_ms}]） |
+| GET | `/api/sessions/:id/results?user_id=X` | 結果比較（視聴者 vs 配信者の正解数・正答率・時間・各問題正誤） |
+
 ## フロントエンドUI
 
 ### ログイン
@@ -82,10 +98,18 @@ study-app/
 - ログインユーザーがアップロード・マイ動画・自習室の操作主体になる
 
 ### タブ構成（4タブ）
-1. **フィードタブ**: 公開動画を2列グリッドで表示。「もっと見る」で追加読み込み
+1. **フィードタブ**: 2列グリッドでダミータイル表示（科目アイコン付きプレースホルダー）。クイズ付きタイルは「クイズ付き」バッジ表示、タップでクイズ開始
 2. **アップロードタブ**: タイトル・公開範囲・動画ファイルを指定して投稿（ログインユーザーとして）
 3. **マイ動画タブ**: ログインユーザーの全動画を自動表示
 4. **自習室タブ**: フォロー管理（フォロー/解除）、フォロー中・フォロワー一覧、フォロー中ユーザーの学習ログタイムライン
+
+### クイズ画面（フィードからオーバーレイ遷移）
+- フィードのクイズ付きタイルをタップ → 全画面オーバーレイでクイズ開始
+- 上半分に動画プレーヤー、下半分に問題文・4択選択肢
+- 1問あたり10秒のタイマーバー（赤いバーが減っていく）
+- 回答選択後もタイマー終了まで待機、未回答のまま10秒経過すると自動で次へ
+- 全問回答後 → 結果画面（あなた vs 配信者の正解数・正答率・時間・各問題正誤比較）
+- 「フィードに戻る」ボタンでオーバーレイを閉じる
 
 ## デプロイ
 - **Render**: GitHubリポジトリ連携で自動デプロイ
@@ -112,3 +136,5 @@ node src/index.js
 4. **デプロイ**: GitHub連携 → Render Web Serviceにデプロイ、シードデータ追加
 5. **Phase4（自習室/フォロー）**: フォロー中一覧・フォロワー一覧・フォロー中ユーザーの学習ログ新着取得API追加
 6. **Phase5（ログイン・UI改善）**: ヘッダーにログイン機能追加、各タブのユーザー選択を廃止しログインユーザーで統一、自習室タブUI（フォロー管理・学習ログタイムライン）追加、フィードを2列グリッド表示に変更、モバイル自動ズーム防止
+7. **Phase6（クイズAPI）**: sessions/questions/answersテーブル追加、セッション作成・一覧・詳細・回答送信・結果比較APIを実装
+8. **Phase7（クイズUI）**: フィードからクイズ付きタイルをタップでオーバーレイ遷移、10秒タイマー付き4択クイズ、視聴者vs配信者の結果比較画面、ダミータイル6件のフィード表示、配信者は1問ランダム不正解のシードデータ
